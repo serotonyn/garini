@@ -1,0 +1,22 @@
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: $spacing-07 * 4;
+    padding-bottom: $spacing-07 * 4;
+}
+
+.banner .heading {
+    @include carbon--type-style("productive-heading-05");
+}
+
+.bx--tabs--scrollable {
+    padding-top: $spacing-05;
+    width: 100%;
+    justify-content: center;
+}
+
+.automobilist {
+    display: flex;
+    justify-content: center;
+}
