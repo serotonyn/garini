@@ -9,6 +9,21 @@ import { BrowserRouter as Router } from "react-router-dom";
 // import "core-js/modules/es6.string.includes";
 // import "core-js/modules/es6.string.trim";
 // import "core-js/modules/es7.object.values";
+import firebase from "firebase/app";
+import "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAzpcpdeEQrW6BERIDq1yCdyTPVxtBmGEM",
+  authDomain: "park-22003.firebaseapp.com",
+  databaseURL: "https://park-22003.firebaseio.com",
+  projectId: "park-22003",
+  storageBucket: "park-22003.appspot.com",
+  messagingSenderId: "10303431139",
+  appId: "1:10303431139:web:5f95c7ed9f57836d2540d6",
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
