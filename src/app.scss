@@ -3,7 +3,9 @@
 @import "carbon-components/scss/globals/scss/typography.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
 @import "./components/AppHeader/app-header.scss";
+@import "./components/Map/map.scss";
 @import "./content/LandingPage/landing-page.scss";
+@import "./content/ExplorePage/explore-page.scss";
 .bx--content {
     padding: 0;
 }

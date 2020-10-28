@@ -16,9 +16,11 @@
     "carbon-components": "^10.22.0",
     "carbon-components-react": "^7.22.0",
     "carbon-icons": "^7.0.7",
+    "leaflet": "^1.7.1",
     "node-sass": "4.12.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-leaflet": "^3.0.0-rc.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "typescript": "^4.0.3",
@@ -52,6 +54,7 @@
     "@types/carbon-components": "^10.15.0",
     "@types/carbon-components-react": "^7.10.13",
     "@types/carbon__themes": "^0.0.1",
+    "@types/react-leaflet": "^2.5.2",
     "@types/react-router-dom": "^5.1.6"
   }
 }

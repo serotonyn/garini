@@ -1,6 +1,7 @@
-import { Button, Tabs, Tab } from "carbon-components-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, Tabs, Tab } from "carbon-components-react";
+import { Map16 } from "@carbon/icons-react";
 
 const props = {
   tabs: {
@@ -23,11 +24,11 @@ const LandingPage = () => {
           <Tab {...props.tab} label="Automobilist">
             <div className="automobilist">
               <Link to="/explore">
-                <Button>Explore</Button>
+                <Button renderIcon={Map16}>Explore</Button>
               </Link>
             </div>
           </Tab>
-          <Tab {...props.tab} label="Parkinger">
+          <Tab {...props.tab} label="Receptionist">
             <div>
               <div>
                 <div>

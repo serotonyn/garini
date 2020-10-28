@@ -3,7 +3,8 @@ import "./app.scss";
 import { Content } from "carbon-components-react";
 import AppHeader from "./components/AppHeader";
 import { Route, Switch } from "react-router-dom";
-import LandingPage from "./content/LandingPage/LandingPage";
+import LandingPage from "./content/LandingPage";
+import ExplorePage from "./content/ExplorePage";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Content className="content">
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/explore" component={() => <h1>repos</h1>} />
+          <Route exact path="/explore" component={ExplorePage} />
         </Switch>
       </Content>
     </>
