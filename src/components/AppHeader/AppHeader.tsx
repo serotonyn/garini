@@ -15,9 +15,27 @@ import {
 } from "carbon-components-react";
 import { Notification20, UserAvatar20 } from "@carbon/icons-react";
 import { Link } from "react-router-dom";
+import { User } from "../../App";
 
-const AppHeader = () => {
+type Path = string;
+type Item = string;
+
+const AppHeader = ({
+  user,
+  hasReceptionistParking,
+}: {
+  user: User;
+  hasReceptionistParking: boolean;
+}) => {
   const [isSidebarExpanded, expandSidebar] = useState(false);
+  const menuItems = new Map<Path, Item>();
+  if (user === User.Receptionist) {
+    hasReceptionistParking
+      ? menuItems.set("/my-parking", "My Parking")
+      : menuItems.set("/create", "Create");
+  } else {
+    menuItems.set("/explore", "Explore");
+  }
   return (
     <HeaderContainer
       render={() => (
@@ -36,10 +54,12 @@ const AppHeader = () => {
           </HeaderName>
 
           <HeaderNavigation aria-label="Garini">
-            {/* @ts-ignore */}
-            <HeaderMenuItem element={Link} to="/explore">
-              Explore
-            </HeaderMenuItem>
+            {Array.from(menuItems).map(([path, item]) => (
+              // @ts-ignore
+              <HeaderMenuItem key={item} element={Link} to={path}>
+                {item}
+              </HeaderMenuItem>
+            ))}
           </HeaderNavigation>
 
           <SideNav
@@ -48,10 +68,12 @@ const AppHeader = () => {
             isPersistent={false}>
             <SideNavItems>
               <HeaderSideNavItems>
-                {/* @ts-ignore */}
-                <HeaderMenuItem element={Link} to="/explore">
-                  Explore
-                </HeaderMenuItem>
+                {Array.from(menuItems).map(([path, item]) => (
+                  // @ts-ignore
+                  <HeaderMenuItem key={item} element={Link} to={path}>
+                    {item}
+                  </HeaderMenuItem>
+                ))}
               </HeaderSideNavItems>
             </SideNavItems>
           </SideNav>

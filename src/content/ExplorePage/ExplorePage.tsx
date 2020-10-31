@@ -1,6 +1,5 @@
 import React from "react";
 import Map from "../../components/Map";
-import firebase from "firebase/app";
 
 // const db = firebase.firestore();
 // db.collection("markers");

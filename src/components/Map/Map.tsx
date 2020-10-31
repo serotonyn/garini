@@ -6,22 +6,35 @@ import {
   TileLayer,
   MarkerProps,
   Popup,
+  useMapEvents,
 } from "react-leaflet";
 import { LatLngExpression, LatLngTuple } from "leaflet";
 import firebase from "firebase/app";
 
 const HEADER_HEIGHT = 48;
 
-interface Marker extends MarkerProps {
+interface IMarker extends MarkerProps {
   id: string;
   atLeastOneFreeSpot: boolean;
 }
 
-export default () => {
+export const Map = () => {
   const db = firebase.firestore();
   const position: LatLngTuple = [36.7538, 3.0588];
 
-  const [markers, setMarkers] = useState<Marker[]>([]);
+  const [markers, setMarkers] = useState<IMarker[]>([]);
+
+  console.log(useMapEvents);
+  // const map = useMapEvents({
+  //   click() {
+  //     map.locate();
+  //   },
+  //   locationfound(e) {
+  //     // setPosition(e.latlng)
+  //     // map.flyTo(e.latlng, map.getZoom())
+  //     console.log(e);
+  //   },
+  // });
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -53,7 +66,7 @@ export default () => {
           if (docSnapshot.empty) {
             return;
           }
-          const markers: Marker[] = docSnapshot.docs.map((doc) => ({
+          const markers: IMarker[] = docSnapshot.docs.map((doc) => ({
             position: [
               doc.data().position.latitude as number,
               doc.data().position.longitude as number,
@@ -71,7 +84,7 @@ export default () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [db]);
 
   return (
     <MapContainer
@@ -84,7 +97,7 @@ export default () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {markers.map((marker: Marker) => (
+      {markers.map((marker: IMarker) => (
         <Marker key={marker.id} position={marker.position}>
           <Popup>
             {marker.atLeastOneFreeSpot ? "arwah tgari" : "full sorry"}
@@ -94,3 +107,5 @@ export default () => {
     </MapContainer>
   );
 };
+
+export default Map;
