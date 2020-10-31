@@ -9,6 +9,7 @@ import firebase from "firebase";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Map from "../../components/ReceptionistMap";
+import { v4 as uuidv4 } from "uuid";
 
 const BREADCRUMBS_HEIGHT = 100;
 
@@ -22,10 +23,11 @@ const CreateParkingPage = () => {
   const submit = async () => {
     setIsSubmitting(true);
     const db = firebase.firestore();
+
     try {
       await db
         .collection("markers")
-        .doc("ididid")
+        .doc(uuidv4())
         .set({
           atLeastOneFreeSpot: false,
           position: new firebase.firestore.GeoPoint(

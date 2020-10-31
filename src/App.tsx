@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./app.scss";
 import { Content } from "carbon-components-react";
 import AppHeader from "./components/AppHeader";
@@ -8,6 +8,7 @@ import ExplorePage from "./content/ExplorePage";
 import ReceptionistPage from "./content/ReceptionistPage";
 import MyParkingPage from "./content/MyParkingPage";
 import CreateParkingPage from "./content/CreateParkingPage";
+import NoMatch from "./components/NoMatch";
 
 export enum User {
   Automobilist,
@@ -15,11 +16,13 @@ export enum User {
   Guest,
 }
 
-const RootRoute = ({ user, ...args }: any) => {
+const RootRoute = ({ user, hasReceptionistParking, ...args }: any) => {
   let component;
   switch (user) {
     case User.Receptionist:
-      component = () => <ReceptionistPage />;
+      component = hasReceptionistParking
+        ? () => <MyParkingPage />
+        : () => <ReceptionistPage />;
       break;
     case User.Automobilist:
       component = () => <div>Automobilist</div>;
@@ -30,9 +33,9 @@ const RootRoute = ({ user, ...args }: any) => {
   return <Route {...args} component={component} />;
 };
 
-const AuthRoute = ({ component, isAuthenticated, ...rest }: any) => {
+const PrivateRoute = ({ component, isAccessible, ...rest }: any) => {
   const routeComponent = (props: any) =>
-    isAuthenticated ? (
+    isAccessible ? (
       React.createElement(component, props)
     ) : (
       <Redirect to={{ pathname: "/" }} />
@@ -40,32 +43,41 @@ const AuthRoute = ({ component, isAuthenticated, ...rest }: any) => {
   return <Route {...rest} render={routeComponent} />;
 };
 
+// export interface IContext {
+//   hasReceptionistParking: boolean;
+// }
+// export const Context = React.createContext<IContext>({
+//   hasReceptionistParking: false,
+// });
+
 const user: User = User.Receptionist;
 const hasReceptionistParking = false;
 function App() {
   return (
     <>
+      {/* <Context.Provider value={{ hasReceptionistParking: false }}> */}
       <AppHeader user={user} hasReceptionistParking={hasReceptionistParking} />
       <Content className="content">
         <Switch>
-          <RootRoute user={user} exact path="/" />
-          <AuthRoute
+          <RootRoute
+            user={user}
+            hasReceptionistParking={hasReceptionistParking}
             exact
-            path="/my-parking"
-            isAuthenticated={user === User.Receptionist}
-            component={() => (
-              <MyParkingPage hasReceptionistParking={hasReceptionistParking} />
-            )}
+            path="/"
           />
-          <AuthRoute
+          <PrivateRoute
             exact
             path="/create"
             component={CreateParkingPage}
-            isAuthenticated={user === User.Receptionist}
+            isAccessible={user === User.Receptionist && !hasReceptionistParking}
           />
           <Route exact path="/explore" component={ExplorePage} />
+          <Route path="*">
+            <NoMatch />
+          </Route>
         </Switch>
       </Content>
+      {/* </Context.Provider> */}
     </>
   );
 }
