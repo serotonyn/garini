@@ -17,6 +17,7 @@
     "carbon-components-react": "^7.22.0",
     "carbon-icons": "^7.0.7",
     "firebase": "^8.0.0",
+    "firebaseui": "^4.7.0",
     "leaflet": "^1.7.1",
     "node-sass": "4.12.0",
     "react": "^17.0.1",
@@ -56,6 +57,7 @@
     "@types/carbon-components": "^10.15.0",
     "@types/carbon-components-react": "^7.10.13",
     "@types/carbon__themes": "^0.0.1",
+    "@types/firebase": "^3.2.1",
     "@types/react-leaflet": "^2.5.2",
     "@types/react-router-dom": "^5.1.6",
     "@types/uuid": "^8.3.0"

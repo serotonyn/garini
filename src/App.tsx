@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./app.scss";
 import { Content } from "carbon-components-react";
 import AppHeader from "./components/AppHeader";
@@ -6,9 +6,10 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import LandingPage from "./content/LandingPage";
 import ExplorePage from "./content/ExplorePage";
 import ReceptionistPage from "./content/ReceptionistPage";
-import MyParkingPage from "./content/MyParkingPage";
 import CreateParkingPage from "./content/CreateParkingPage";
 import NoMatch from "./components/NoMatch";
+import SignupPage from "./content/SignupPage";
+import LoginPage from "./content/LoginPage";
 
 export enum User {
   Automobilist,
@@ -20,9 +21,7 @@ const RootRoute = ({ user, hasReceptionistParking, ...args }: any) => {
   let component;
   switch (user) {
     case User.Receptionist:
-      component = hasReceptionistParking
-        ? () => <MyParkingPage />
-        : () => <ReceptionistPage />;
+      component = () => <ReceptionistPage />;
       break;
     case User.Automobilist:
       component = () => <div>Automobilist</div>;
@@ -43,19 +42,18 @@ const PrivateRoute = ({ component, isAccessible, ...rest }: any) => {
   return <Route {...rest} render={routeComponent} />;
 };
 
-// export interface IContext {
-//   hasReceptionistParking: boolean;
-// }
-// export const Context = React.createContext<IContext>({
-//   hasReceptionistParking: false,
-// });
+export interface IContext {
+  hasReceptionistParking: boolean;
+}
+export const Context = React.createContext<IContext>({
+  hasReceptionistParking: false,
+});
 
 const user: User = User.Receptionist;
 const hasReceptionistParking = false;
 function App() {
   return (
-    <>
-      {/* <Context.Provider value={{ hasReceptionistParking: false }}> */}
+    <Context.Provider value={{ hasReceptionistParking: false }}>
       <AppHeader user={user} hasReceptionistParking={hasReceptionistParking} />
       <Content className="content">
         <Switch>
@@ -72,13 +70,14 @@ function App() {
             isAccessible={user === User.Receptionist && !hasReceptionistParking}
           />
           <Route exact path="/explore" component={ExplorePage} />
+          <Route exact path="/signup" component={SignupPage} />
+          <Route exact path="/login" component={LoginPage} />
           <Route path="*">
             <NoMatch />
           </Route>
         </Switch>
       </Content>
-      {/* </Context.Provider> */}
-    </>
+    </Context.Provider>
   );
 }
 

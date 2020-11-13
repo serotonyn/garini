@@ -29,10 +29,10 @@ const AppHeader = ({
 }) => {
   const [isSidebarExpanded, expandSidebar] = useState(false);
   const menuItems = new Map<Path, Item>();
-  if (user === User.Receptionist) {
-    hasReceptionistParking
-      ? menuItems.set("/my-parking", "My Parking")
-      : menuItems.set("/create", "Create");
+  if (user === User.Receptionist && !hasReceptionistParking) {
+    // hasReceptionistParking
+    //   ? menuItems.set("/my-parking", "My Parking")
+    //   : menuItems.set("/create", "Create");
   } else {
     menuItems.set("/explore", "Explore");
   }
@@ -83,7 +83,9 @@ const AppHeader = ({
               <Notification20 />
             </HeaderGlobalAction>
             <HeaderGlobalAction aria-label="User Avatar">
-              <UserAvatar20 />
+              <Link to="/signup">
+                <UserAvatar20 color="white" />
+              </Link>
             </HeaderGlobalAction>
           </HeaderGlobalBar>
         </Header>
