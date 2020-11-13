@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./app.scss";
-import { Content } from "carbon-components-react";
+import { Content, Loading } from "carbon-components-react";
 import AppHeader from "./components/AppHeader";
 import { Redirect, Route, Switch } from "react-router-dom";
 import LandingPage from "./content/LandingPage";
@@ -19,6 +19,7 @@ export enum UserType {
 }
 interface User {
   type: string;
+  hasReceptionistParking?: boolean;
 }
 
 const RootRoute = ({ user, hasReceptionistParking, ...args }: any) => {
@@ -53,10 +54,10 @@ export const Context = React.createContext<IContext>({
   hasReceptionistParking: false,
 });
 
-const hasReceptionistParking = false;
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userType, setUserType] = useState(UserType.Guest);
+  const [hasReceptionistParking, setHasReceptionistParking] = useState(false);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -74,6 +75,9 @@ function App() {
                 ? UserType.Receptionist
                 : UserType.Automobilist
             );
+            if (user.type === "Receptionist") {
+              setHasReceptionistParking(user.hasReceptionistParking!);
+            }
           });
       } else {
         setIsLoading(false);
@@ -82,9 +86,9 @@ function App() {
   }, []);
 
   return isLoading ? (
-    <div>loading</div>
+    <Loading />
   ) : (
-    <Context.Provider value={{ hasReceptionistParking: false }}>
+    <Context.Provider value={{ hasReceptionistParking }}>
       <AppHeader
         user={userType}
         hasReceptionistParking={hasReceptionistParking}

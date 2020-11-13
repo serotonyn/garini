@@ -7,7 +7,7 @@ const ReceptionistPage = () => {
   return (
     <Context.Consumer>
       {({ hasReceptionistParking }) => {
-        return hasReceptionistParking ? <NoParkingYet /> : <MyParking />;
+        return hasReceptionistParking ? <MyParking /> : <NoParkingYet />;
       }}
     </Context.Consumer>
   );

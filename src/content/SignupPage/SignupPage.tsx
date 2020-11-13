@@ -34,6 +34,7 @@ const SignupPage = () => {
         if (user && user)
           firebase.firestore().collection("/users").doc(user.uid).set({
             type: "Receptionist",
+            hasReceptionistParking: false,
           });
       })
       .catch(function (error) {
