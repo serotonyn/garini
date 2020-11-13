@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Map from "../../components/ReceptionistMap";
 import { v4 as uuidv4 } from "uuid";
+import { Context } from "../../App";
 
 const BREADCRUMBS_HEIGHT = 100;
 
@@ -20,21 +21,27 @@ const CreateParkingPage = () => {
 
   const history = useHistory();
 
-  const submit = async () => {
+  const submit = async (userId: string, updateHasReceptionistParking: any) => {
     setIsSubmitting(true);
     const db = firebase.firestore();
 
     try {
       await db
-        .collection("markers")
+        .collection("/markers")
         .doc(uuidv4())
         .set({
+          userId,
           atLeastOneFreeSpot: false,
           position: new firebase.firestore.GeoPoint(
             newPosition[0],
             newPosition[1]
           ),
         });
+      await db
+        .collection("/users")
+        .doc(userId)
+        .set({ hasReceptionistParking: true }, { merge: true });
+      updateHasReceptionistParking(true);
       history.push("/");
     } catch (e) {
       console.log(e);
@@ -106,12 +113,20 @@ const CreateParkingPage = () => {
         </div>
       )}
       {currentIndex === 4 && (
-        <div>
-          <Button disabled={isSubmitting} onClick={submit}>
-            Submit
-          </Button>
-          {isSubmitting && <Loading />}
-        </div>
+        <Context.Consumer>
+          {({ userId, updateHasReceptionistParking }) => {
+            return (
+              <div>
+                <Button
+                  disabled={isSubmitting}
+                  onClick={() => submit(userId!, updateHasReceptionistParking)}>
+                  Submit
+                </Button>
+                {isSubmitting && <Loading />}
+              </div>
+            );
+          }}
+        </Context.Consumer>
       )}
     </>
   );

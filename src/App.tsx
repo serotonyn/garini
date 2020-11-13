@@ -18,6 +18,7 @@ export enum UserType {
   Guest,
 }
 interface User {
+  uid: string;
   type: string;
   hasReceptionistParking?: boolean;
 }
@@ -49,15 +50,20 @@ const PrivateRoute = ({ component, isAccessible, ...rest }: any) => {
 
 export interface IContext {
   hasReceptionistParking: boolean;
+  userId: string | null;
+  updateHasReceptionistParking: any;
 }
 export const Context = React.createContext<IContext>({
   hasReceptionistParking: false,
+  userId: null,
+  updateHasReceptionistParking: () => {},
 });
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userType, setUserType] = useState(UserType.Guest);
   const [hasReceptionistParking, setHasReceptionistParking] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -69,14 +75,15 @@ function App() {
           .get()
           .then((docRef) => {
             setIsLoading(false);
-            const user = docRef.data() as User;
+            const userData = docRef.data() as User;
+            setUserId(user.uid);
             setUserType(
-              user.type === "Receptionist"
+              userData.type === "Receptionist"
                 ? UserType.Receptionist
                 : UserType.Automobilist
             );
-            if (user.type === "Receptionist") {
-              setHasReceptionistParking(user.hasReceptionistParking!);
+            if (userData.type === "Receptionist") {
+              setHasReceptionistParking(userData.hasReceptionistParking!);
             }
           });
       } else {
@@ -88,7 +95,13 @@ function App() {
   return isLoading ? (
     <Loading />
   ) : (
-    <Context.Provider value={{ hasReceptionistParking }}>
+    <Context.Provider
+      value={{
+        hasReceptionistParking,
+        userId,
+        updateHasReceptionistParking: (value: boolean) =>
+          setHasReceptionistParking(value),
+      }}>
       <AppHeader
         user={userType}
         hasReceptionistParking={hasReceptionistParking}

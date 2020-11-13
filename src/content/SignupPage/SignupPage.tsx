@@ -31,7 +31,7 @@ const SignupPage = () => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        if (user && user)
+        if (user)
           firebase.firestore().collection("/users").doc(user.uid).set({
             type: "Receptionist",
             hasReceptionistParking: false,
@@ -40,8 +40,7 @@ const SignupPage = () => {
       .catch(function (error) {
         console.log(error);
         setError(error);
-      })
-      .finally((...args) => console.log("finally", args));
+      });
   };
   return (
     <Grid>
