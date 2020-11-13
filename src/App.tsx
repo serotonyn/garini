@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./app.scss";
 import { Content } from "carbon-components-react";
 import AppHeader from "./components/AppHeader";
@@ -10,20 +10,24 @@ import CreateParkingPage from "./content/CreateParkingPage";
 import NoMatch from "./components/NoMatch";
 import SignupPage from "./content/SignupPage";
 import LoginPage from "./content/LoginPage";
+import firebase from "firebase";
 
-export enum User {
+export enum UserType {
   Automobilist,
   Receptionist,
   Guest,
+}
+interface User {
+  type: string;
 }
 
 const RootRoute = ({ user, hasReceptionistParking, ...args }: any) => {
   let component;
   switch (user) {
-    case User.Receptionist:
+    case UserType.Receptionist:
       component = () => <ReceptionistPage />;
       break;
-    case User.Automobilist:
+    case UserType.Automobilist:
       component = () => <div>Automobilist</div>;
       break;
     default:
@@ -49,16 +53,46 @@ export const Context = React.createContext<IContext>({
   hasReceptionistParking: false,
 });
 
-const user: User = User.Receptionist;
 const hasReceptionistParking = false;
 function App() {
-  return (
+  const [isLoading, setIsLoading] = useState(true);
+  const [userType, setUserType] = useState(UserType.Guest);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection("/users")
+          .doc(user.uid)
+          .get()
+          .then((docRef) => {
+            setIsLoading(false);
+            const user = docRef.data() as User;
+            setUserType(
+              user.type === "Receptionist"
+                ? UserType.Receptionist
+                : UserType.Automobilist
+            );
+          });
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, []);
+
+  return isLoading ? (
+    <div>loading</div>
+  ) : (
     <Context.Provider value={{ hasReceptionistParking: false }}>
-      <AppHeader user={user} hasReceptionistParking={hasReceptionistParking} />
+      <AppHeader
+        user={userType}
+        hasReceptionistParking={hasReceptionistParking}
+      />
       <Content className="content">
         <Switch>
           <RootRoute
-            user={user}
+            user={userType}
             hasReceptionistParking={hasReceptionistParking}
             exact
             path="/"
@@ -67,7 +101,9 @@ function App() {
             exact
             path="/create"
             component={CreateParkingPage}
-            isAccessible={user === User.Receptionist && !hasReceptionistParking}
+            isAccessible={
+              userType === UserType.Receptionist && !hasReceptionistParking
+            }
           />
           <Route exact path="/explore" component={ExplorePage} />
           <Route exact path="/signup" component={SignupPage} />

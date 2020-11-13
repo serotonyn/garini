@@ -26,6 +26,7 @@ const SignupPage = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((...args) => {
+        // localStorage.setItem("")
         setError({
           code: "",
           message: "",

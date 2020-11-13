@@ -15,22 +15,11 @@ import {
 } from "carbon-components-react";
 import firebase from "firebase";
 
-const props = {
-  group: () => ({
-    name: "radio-button-group",
-    valueSelected: "default-selected",
-  }),
-  radio: () => ({
-    className: "some-class",
-    disabled: false,
-    labelText: "Radio button label",
-  }),
-};
-
 const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userType, setUserType] = useState("");
   const [error, setError] = useState({
     code: "",
     message: "",
@@ -63,17 +52,19 @@ const SignupPage = () => {
               <RadioButtonGroup
                 orientation="horizontal"
                 labelPosition="left"
-                defaultSelected="default-selected"
-                {...props.group()}>
+                defaultSelected=""
+                name="radio-button-group"
+                onChange={(selected: string) => setUserType(selected)}
+                valueSelected={userType}>
                 <RadioButton
-                  value="default-selected"
+                  value="automobilist"
                   id="radio-1"
-                  labelText="Automobilist"
+                  labelText="automobilist"
                 />
                 <RadioButton
-                  value="standard"
+                  value="receptionist"
                   id="radio-2"
-                  labelText="Receptionist"
+                  labelText="receptionist"
                 />
               </RadioButtonGroup>
             </FormGroup>
@@ -121,7 +112,11 @@ const SignupPage = () => {
                 bonita
               </Link>
             </div>
-            <Button kind="primary" tabIndex={0} onClick={submit}>
+            <Button
+              kind="primary"
+              tabIndex={0}
+              onClick={submit}
+              disabled={userType === ""}>
               Submit
             </Button>
           </Form>

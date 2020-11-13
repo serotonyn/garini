@@ -15,7 +15,7 @@ import {
 } from "carbon-components-react";
 import { Notification20, UserAvatar20 } from "@carbon/icons-react";
 import { Link } from "react-router-dom";
-import { User } from "../../App";
+import { UserType } from "../../App";
 
 type Path = string;
 type Item = string;
@@ -24,12 +24,12 @@ const AppHeader = ({
   user,
   hasReceptionistParking,
 }: {
-  user: User;
+  user: UserType;
   hasReceptionistParking: boolean;
 }) => {
   const [isSidebarExpanded, expandSidebar] = useState(false);
   const menuItems = new Map<Path, Item>();
-  if (user === User.Receptionist && !hasReceptionistParking) {
+  if (user === UserType.Receptionist && !hasReceptionistParking) {
     // hasReceptionistParking
     //   ? menuItems.set("/my-parking", "My Parking")
     //   : menuItems.set("/create", "Create");
