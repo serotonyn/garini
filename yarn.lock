@@ -1920,7 +1920,7 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/carbon-components-react@^7.10.13":
+"@types/carbon-components-react@^7.23.1":
   version "7.23.1"
   resolved "https://registry.yarnpkg.com/@types/carbon-components-react/-/carbon-components-react-7.23.1.tgz#ead4f29d40ff9e10565476cf68c7467f2fdf94e2"
   integrity sha512-euIgS3SxkTwo+u7b4jiTN+e1y4jIyW5RgGHuXOq5bEa15xO433Qpwc48443xGHpr4RrB++DWtdHh6ixOqIzAcg==

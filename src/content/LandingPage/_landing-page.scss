@@ -1,9 +1,26 @@
+.container {
+    &:after {
+        content: "";
+        background: url("../../assets/street.jpg") center center / cover no-repeat;
+        filter: grayscale(1) blur(1px);
+        transform: scale(1.1);
+        height: 95vh;
+        width: 100vw;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+    }
+}
+
 .banner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: $spacing-07 * 4;
-    padding-bottom: $spacing-07 * 4;
+    justify-content: space-between;
+    padding-top: $spacing-07;
+    padding-bottom: 9vw;
+    text-align: center;
+    // padding-bottom: $spacing-07 * 4;
 }
 
 .banner .heading {
@@ -11,12 +28,19 @@
 }
 
 .bx--tabs--scrollable {
-    padding-top: $spacing-05;
+    // padding-top: $spacing-08 * 15;
     width: 100%;
     justify-content: center;
 }
 
-.automobilist {
+.tab-content {
     display: flex;
     justify-content: center;
+}
+
+.markers-legend {
+    position: relative;
+    background: white;
+    height: 10vh;
+    width: 50vw;
 }

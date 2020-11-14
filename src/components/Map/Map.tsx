@@ -11,6 +11,7 @@ import { LatLngExpression, LatLngTuple, divIcon } from "leaflet";
 import firebase from "firebase/app";
 import ReactDOMServer from "react-dom/server";
 import { Button } from "carbon-components-react";
+import { MarkerString } from "../MarkerIcon";
 
 const HEADER_HEIGHT = 48;
 const BREADKCRUMBS_HEIGHT = 100;
@@ -113,28 +114,11 @@ export const Map = ({
             position={marker.position}
             /* icon={Icon} */
             icon={divIcon({
-              html: ReactDOMServer.renderToString(
-                <>
-                  <div
-                    className="pin"
-                    style={{
-                      background: marker.officialReceptionist
-                        ? "#2196f3"
-                        : "#607D8B",
-                    }}
-                  />
-                  <div
-                    className="pin-after"
-                    style={{
-                      background: marker.atLeastOneFreeSpot
-                        ? "#8bc34a"
-                        : "#ff5722",
-                    }}
-                  />
-                  <div className="pulse" />
-                  <div className="pulse-after" />
-                </>
-              ),
+              html: MarkerString({
+                isOfficialReceptionist: marker.officialReceptionist,
+                atLeastOneFreeSpot: marker.atLeastOneFreeSpot,
+                hasPulse: true,
+              }),
             })}>
             <Popup>
               {marker.atLeastOneFreeSpot ? "arwah tgari" : "full sorry"}
