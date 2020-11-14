@@ -6,8 +6,12 @@ import NoParkingYet from "../../components/NoParkingYet";
 const ReceptionistPage = () => {
   return (
     <Context.Consumer>
-      {({ hasReceptionistParking }) => {
-        return hasReceptionistParking ? <MyParking /> : <NoParkingYet />;
+      {({ hasReceptionistParking, userId }) => {
+        return hasReceptionistParking && userId ? (
+          <MyParking userId={userId} />
+        ) : (
+          <NoParkingYet />
+        );
       }}
     </Context.Consumer>
   );
