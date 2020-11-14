@@ -4,11 +4,11 @@ import {
   ProgressIndicator,
   ProgressStep,
   Tile,
+  Toggle,
 } from "carbon-components-react";
 import firebase from "firebase";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import Map from "../../components/ReceptionistMap";
+import Map from "../../components/Map";
 import { v4 as uuidv4 } from "uuid";
 import { Context } from "../../App";
 
@@ -18,8 +18,7 @@ const CreateParkingPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [newPosition, setNewPosition] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const history = useHistory();
+  const [isToggleSimulateDocsOn, setToggleSimulateDocs] = useState(false);
 
   const submit = async (userId: string, updateHasReceptionistParking: any) => {
     setIsSubmitting(true);
@@ -36,13 +35,13 @@ const CreateParkingPage = () => {
             newPosition[0],
             newPosition[1]
           ),
+          officialReceptionist: isToggleSimulateDocsOn,
         });
       await db
         .collection("/users")
         .doc(userId)
         .set({ hasReceptionistParking: true }, { merge: true });
       updateHasReceptionistParking(true);
-      history.push("/");
     } catch (e) {
       console.log(e);
     }
@@ -107,6 +106,11 @@ const CreateParkingPage = () => {
       )}
       {currentIndex === 3 && (
         <div>
+          <Toggle
+            id="toggle-simulate-docs"
+            labelText="Simulate Docs Uploaded"
+            onToggle={(state: boolean) => setToggleSimulateDocs(!!state)}
+          />
           <Button onClick={() => setCurrentIndex((index) => index + 1)}>
             Upload document
           </Button>

@@ -17,7 +17,6 @@ const MyParkingPage = ({ userId }: { userId: string }) => {
       .get()
       .then((querySnapshot) => {
         unsubscribe = querySnapshot.docs[0].ref.onSnapshot((doc) => {
-          console.log({ doc: doc.data() });
           setAtLeastOneFreeSpot((doc as any).data().atLeastOneFreeSpot);
         });
       })

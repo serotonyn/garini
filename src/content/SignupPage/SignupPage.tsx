@@ -38,7 +38,6 @@ const SignupPage = () => {
           });
       })
       .catch(function (error) {
-        console.log(error);
         setError(error);
       });
   };
