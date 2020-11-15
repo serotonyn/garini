@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/carbon-components-react": "^7.23.1",
     "@types/carbon__icons-react": "^10.19.0",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
@@ -55,7 +56,6 @@
   },
   "devDependencies": {
     "@types/carbon-components": "^10.15.0",
-    "@types/carbon-components-react": "^7.23.1",
     "@types/carbon__themes": "^0.0.1",
     "@types/firebase": "^3.2.1",
     "@types/react-leaflet": "^2.5.2",

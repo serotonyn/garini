@@ -6,3 +6,34 @@
 .create-parking-button {
     margin-top: $spacing-05;
 }
+
+.you-start-here {
+    @include carbon--type-style("expressive-paragraph-01");
+    margin-top: $spacing-05 * 2;
+    text-align: center;
+}
+
+.tile {
+    margin-top: $spacing-05 * 2;
+}
+
+.button {
+    margin-top: $spacing-05 * 2;
+}
+
+.set-hours-container {
+    display: flex;
+    justify-content: center;
+}
+
+.set-documents-container {
+    margin-top: $spacing-05 * 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+}

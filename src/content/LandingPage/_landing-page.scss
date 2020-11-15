@@ -6,7 +6,6 @@
     flex: 1;
     background: url("../../assets/street.jpg") center center / cover no-repeat;
     @media (max-width: 1056px) {
-        // --columns: 1;
         display: none;
     }
 }
@@ -38,11 +37,9 @@
 .markers-legend {
     padding-top: $spacing-08;
     position: relative;
-    // height: 10vh;
 }
 
 .marker-box {
-    // font-family: "IBM Plex Serif", "Georgia", Times, serif;
     @include carbon--type-style("label-01");
     display: flex;
     align-items: center;

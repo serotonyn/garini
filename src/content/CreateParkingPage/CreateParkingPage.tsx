@@ -57,6 +57,7 @@ const CreateParkingPage = () => {
         }}>
         {/* TODO: use scss */}
         <div style={{ paddingTop: 38 }}>
+          {/* TODO: ProgressIndicator responsiveness */}
           <ProgressIndicator currentIndex={currentIndex}>
             <ProgressStep label="Start" />
             <ProgressStep label="Map" />
@@ -81,9 +82,15 @@ const CreateParkingPage = () => {
             flexDirection: "column",
             alignItems: "center",
           }}>
-          <h1>you start here, I'm gonna explain how to create a parking</h1>
-          <Tile>Ps: You cannot move to previous steps. So just refresh.</Tile>
-          <Button onClick={() => setCurrentIndex((index) => index + 1)}>
+          <h1 className="you-start-here">
+            you start here, I'm gonna explain how to create a parking
+          </h1>
+          <Tile className="tile">
+            Ps: You cannot move to previous steps. So just refresh.
+          </Tile>
+          <Button
+            className="button"
+            onClick={() => setCurrentIndex((index) => index + 1)}>
             Next
           </Button>
         </div>
@@ -98,20 +105,24 @@ const CreateParkingPage = () => {
         </div>
       )}
       {currentIndex === 2 && (
-        <div>
-          <Button onClick={() => setCurrentIndex((index) => index + 1)}>
+        <div className="set-hours-container">
+          <Button
+            className="button"
+            onClick={() => setCurrentIndex((index) => index + 1)}>
             Set Work Hours
           </Button>
         </div>
       )}
       {currentIndex === 3 && (
-        <div>
+        <div className="set-documents-container">
           <Toggle
             id="toggle-simulate-docs"
             labelText="Simulate Docs Uploaded"
             onToggle={(state: boolean) => setToggleSimulateDocs(!!state)}
           />
-          <Button onClick={() => setCurrentIndex((index) => index + 1)}>
+          <Button
+            className="button"
+            onClick={() => setCurrentIndex((index) => index + 1)}>
             Upload document
           </Button>
         </div>
@@ -120,8 +131,9 @@ const CreateParkingPage = () => {
         <Context.Consumer>
           {({ userId, updateHasReceptionistParking }) => {
             return (
-              <div>
+              <div className="submit-container">
                 <Button
+                  className=".button"
                   disabled={isSubmitting}
                   onClick={() => submit(userId!, updateHasReceptionistParking)}>
                   Submit

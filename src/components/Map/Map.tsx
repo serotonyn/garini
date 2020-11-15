@@ -28,7 +28,19 @@ function NewMarker({ setNewPosition, newPosition }: any) {
     },
   });
   return newPosition.length ? (
-    <Marker position={[newPosition[0], newPosition[1]]} />
+    // TODO white marker is hard to see
+    <Marker
+      position={[newPosition[0], newPosition[1]]}
+      icon={divIcon({
+        html: MarkerString({
+          isOfficialReceptionist: false,
+          atLeastOneFreeSpot: false,
+          hasPulse: false,
+          isPinAfterInvisible: true,
+          isPinInvisible: true,
+        }),
+      })}
+    />
   ) : null;
 }
 
@@ -111,7 +123,6 @@ export const Map = ({
           <Marker
             key={marker.id}
             position={marker.position}
-            /* icon={Icon} */
             icon={divIcon({
               html: MarkerString({
                 isOfficialReceptionist: marker.officialReceptionist,

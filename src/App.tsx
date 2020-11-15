@@ -64,9 +64,12 @@ function App() {
   const [userType, setUserType] = useState(UserType.Guest);
   const [hasReceptionistParking, setHasReceptionistParking] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  console.log({
+    userType,
+  });
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase
           .firestore()
@@ -90,7 +93,10 @@ function App() {
         setIsLoading(false);
       }
     });
-  }, []);
+    return () => {
+      unsubscribe();
+    };
+  }, [userType]);
 
   return isLoading ? (
     <Loading />

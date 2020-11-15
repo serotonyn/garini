@@ -40,13 +40,23 @@ export const MarkerString = ({
   isOfficialReceptionist,
   atLeastOneFreeSpot,
   hasPulse,
+  isPinInvisible = false,
+  isPinAfterInvisible = false,
 }: {
   isOfficialReceptionist: boolean;
   atLeastOneFreeSpot: boolean;
   hasPulse: boolean;
+  isPinInvisible?: boolean;
+  isPinAfterInvisible?: boolean;
 }) =>
   renderToString(
-    MarkerIcon({ isOfficialReceptionist, atLeastOneFreeSpot, hasPulse })
+    MarkerIcon({
+      isOfficialReceptionist,
+      atLeastOneFreeSpot,
+      hasPulse,
+      isPinAfterInvisible,
+      isPinInvisible,
+    })
   );
 
 export default MarkerIcon;

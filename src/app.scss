@@ -3,6 +3,7 @@
     --grey: #607d8b;
     --lime: #8bc34a;
     --red: #ff5722;
+    --header-height: 48px;
 }
 
 @import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
@@ -14,6 +15,8 @@
 @import "./components/MarkerIcon/marker-icon.scss";
 @import "./components/MyParking/my-parking.scss";
 @import "./content/LandingPage/landing-page.scss";
+@import "./content/SignupPage/signup-page.scss";
+@import "./content/LoginPage/login-page.scss";
 @import "./content/ExplorePage/explore-page.scss";
 @import "./content/ReceptionistPage/receptionist-page.scss";
 @import "./content/CreateParkingPage/create-parking-page.scss";
