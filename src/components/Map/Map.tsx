@@ -9,7 +9,6 @@ import {
 } from "react-leaflet";
 import { LatLngExpression, LatLngTuple, divIcon } from "leaflet";
 import firebase from "firebase/app";
-import ReactDOMServer from "react-dom/server";
 import { Button } from "carbon-components-react";
 import { MarkerString } from "../MarkerIcon";
 

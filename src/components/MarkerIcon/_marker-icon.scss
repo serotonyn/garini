@@ -1,5 +1,5 @@
 .marker-container {
-    // position: relative;
+    position: relative;
     // height: 400px;
     // width: 100px;
 }
@@ -9,23 +9,28 @@
     height: 30px;
     border-radius: 50% 50% 50% 0;
     background: var(--grey);
-    position: absolute;
     transform: rotate(-45deg);
-    left: 50%;
-    top: 50%;
-    margin: -20px 0 0 -20px;
+    // left: 50%;
+    // top: 50%;
+    // margin: -20px 0 0 -20px;
 }
 
 .pin.official-receptionist {
     background: var(--green);
 }
 
+.pin.invisible {
+    background: white;
+}
+
 .pin-after {
-    position: relative;
-    top: -15px;
-    left: -14.6px;
-    right: 0;
-    bottom: 0;
+    top: 0px;
+    position: absolute;
+    // position: absolute;
+    // top: -15px;
+    // left: -14.6px;
+    // right: 0;
+    // bottom: 0;
     width: 14px;
     height: 14px;
     margin: 8px 0 0 8px;
@@ -37,15 +42,18 @@
     background: var(--lime);
 }
 
+.pin-after.invisible {
+    background: white;
+}
+
 .pulse-after {
+    position: absolute;
+    top: 14px;
+    left: -5px;
     border-radius: 50%;
     height: 40px;
     width: 40px;
-    position: absolute;
-    margin: -13px 0 0 -13px;
     transform: rotateX(55deg);
-    top: 17px;
-    left: -7px;
     opacity: 1;
     box-shadow: 0 0 1px 2px #89849b;
     z-index: -1;

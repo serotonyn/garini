@@ -19,24 +19,11 @@ const props = {
 
 const LandingPage = () => {
   return (
-    <div className="container">
-      <div
-        className="banner"
-        style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
+    <div
+      className="container"
+      style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
+      <div className="right-container">
         <h1 className="heading">Find Parking Spots Near You</h1>
-        {/* <div className="markers-legend">
-          <MarkerIcon
-            atLeastOneFreeSpot={false}
-            isOfficialReceptionist={false}
-            hasPulse={false}
-          />
-          <br />
-          <MarkerIcon
-            atLeastOneFreeSpot={false}
-            isOfficialReceptionist={false}
-            hasPulse={false}
-          />
-        </div> */}
         <div>
           <Tabs {...props.tabs} aria-label="Tab navigation">
             <Tab {...props.tab} label="Automobilist">
@@ -55,7 +42,50 @@ const LandingPage = () => {
             </Tab>
           </Tabs>
         </div>
+        <div className="markers-legend">
+          <div className="marker-box">
+            <MarkerIcon
+              atLeastOneFreeSpot={false}
+              isOfficialReceptionist={false}
+              hasPulse={false}
+              isPinAfterInvisible={true}
+            />
+            <span className="marker-desc">Receptionist Not Validated</span>
+          </div>
+          <br />
+          <div className="marker-box">
+            <MarkerIcon
+              atLeastOneFreeSpot={false}
+              isOfficialReceptionist={true}
+              hasPulse={false}
+              isPinAfterInvisible={true}
+            />
+            <span className="marker-desc">Receptionist Validated</span>
+          </div>
+          <br />
+          <div className="marker-box">
+            <MarkerIcon
+              atLeastOneFreeSpot={false}
+              isOfficialReceptionist={false}
+              hasPulse={false}
+              isPinInvisible={true}
+            />
+            <span className="marker-desc">Parking Is Full</span>
+          </div>
+          <br />
+          <div className="marker-box">
+            <MarkerIcon
+              atLeastOneFreeSpot={true}
+              isOfficialReceptionist={false}
+              hasPulse={false}
+              isPinInvisible={true}
+            />
+            <span className="marker-desc">At Least One Spot Is Free</span>
+          </div>
+        </div>
       </div>
+
+      <div className="banner"></div>
     </div>
   );
 };

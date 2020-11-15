@@ -5,24 +5,26 @@ const MarkerIcon = ({
   isOfficialReceptionist,
   atLeastOneFreeSpot,
   hasPulse,
+  isPinInvisible = false,
+  isPinAfterInvisible = false,
 }: {
   isOfficialReceptionist: boolean;
   atLeastOneFreeSpot: boolean;
   hasPulse: boolean;
+  isPinInvisible?: boolean;
+  isPinAfterInvisible?: boolean;
 }) => {
   return (
     <div className="marker-container">
       <div
-        className={`pin ${isOfficialReceptionist && "official-receptionist"}`}
-        // style={{
-        //   background: isOfficialReceptionist ? "#009688" : "#607D8B",
-        // }}
+        className={`pin ${
+          isOfficialReceptionist ? "official-receptionist" : ""
+        } ${isPinInvisible ? "invisible" : ""}`}
       />
       <div
-        className={`pin-after ${atLeastOneFreeSpot && "free-spot"}`}
-        // style={{
-        //   background: atLeastOneFreeSpot ? "#8bc34a" : "#ff5722",
-        // }}
+        className={`pin-after ${atLeastOneFreeSpot ? "free-spot" : ""} ${
+          isPinAfterInvisible ? "invisible" : ""
+        }`}
       />
       {hasPulse && (
         <>
